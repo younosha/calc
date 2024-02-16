@@ -8,6 +8,7 @@ export interface Expression {
   status: EXPRESSION_STATUS,
   is_ready: boolean,
   result: number,
+  parse_date: string,
 }
 
 export interface Operation {
