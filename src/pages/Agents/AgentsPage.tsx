@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Agent } from "../../ts/interfaces";
 import { getAgents } from "../../services/api";
+import { AgentBlock } from "../../components/AgentBlock/AgentBlock";
+import styles from "./AgentsPage.module.css";
 
 export const AgentsPage = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
@@ -10,14 +12,8 @@ export const AgentsPage = () => {
   }, []);
 
   return (
-    <>
-      {agents.map(agent => {
-        return (
-          <div key={agent.id}>
-            <p>{agent.last_ping}</p>
-          </div>
-        )
-      })}
-    </>
+    <div className={styles.container}>
+      {agents.map(agent => <AgentBlock agent={agent} />)}
+    </div>
   )
 }

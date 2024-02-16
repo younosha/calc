@@ -1,11 +1,13 @@
-import { ROUTES } from "./enums";
+import { ROUTES, EXPRESSION_STATUS, AGENT_STATUS } from "./enums";
 
 export interface Expression {
   id: string,
   created_at: string,
   updated_at: string,
   data: string,
-  status: string,
+  status: EXPRESSION_STATUS,
+  is_ready: boolean,
+  result: number,
 }
 
 export interface Operation {
@@ -18,7 +20,7 @@ export interface Agent {
   id: string,
   number_of_parallel_calculations: number,
   last_ping: string,
-  status: string,
+  status: AGENT_STATUS,
   created_at: string,
 }
 
@@ -42,4 +44,14 @@ export interface InputProps {
   value: string | number,
   onChange: (value: string) => void,
   type?: string;
+  placeholder?: string;
 }
+
+export interface ExpressionBlockProps {
+  expression: Expression,
+}
+
+export interface AgentBlockProps {
+  agent: Agent,
+}
+

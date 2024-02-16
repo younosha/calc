@@ -4,6 +4,7 @@ import { Expression } from "../../ts/interfaces";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import { createExpression, getExpressions } from "../../services/api";
+import { ExpressionBlock } from "../../components/ExpressionBlock/ExpressionBlock";
 
 export const ExpressionsPage = () => {
   const [expressions, setExpressions] = useState<Expression[]>([]);
@@ -25,6 +26,7 @@ export const ExpressionsPage = () => {
     <div>
       <div className={styles.actionsBlock}>
         <Input
+          placeholder="Enter expression to calculate"
           value={newExpression}
           onChange={(e) => setNewExpression(e)}
         />
@@ -34,11 +36,9 @@ export const ExpressionsPage = () => {
           title="Create"
         />
       </div>
-      {expressions.map(expression => {
-        return (
-          <p key={expression.id}>{expression.data}</p>
-        )
-      })}
+      <div className={styles.items}>
+        {expressions.map(expression => <ExpressionBlock key={expression.id} expression={expression} />)}
+      </div>
     </div>
   )
 }
