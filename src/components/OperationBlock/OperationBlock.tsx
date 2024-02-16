@@ -4,13 +4,9 @@ import { useState } from "react";
 import { Button } from "../Button/Button";
 import { Input } from "../Input/Input";
 
-export const OperationBlock = ({ operation }: OperationBlockProps) => {
-  const [operationName, setOperationName] = useState(operation.execution_time);
+export const OperationBlock = ({ operation, saveChanges }: OperationBlockProps) => {
+  const [operationName, setOperationName] = useState(Number(operation.execution_time));
   const isChanged = operationName !== operation.execution_time;
-
-  const saveChanges = () => {
-    // запрос на сохранение изменений и после этого запрос на обновление данных
-  };
 
   return (
     <div>
@@ -24,7 +20,7 @@ export const OperationBlock = ({ operation }: OperationBlockProps) => {
         <Button
           title="Save"
           disabled={!isChanged}
-          onClick={saveChanges}
+          onClick={() => saveChanges(operationName)}
         />
       </div>
     </div>

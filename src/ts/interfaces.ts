@@ -29,6 +29,7 @@ export interface HeaderProps {
 
 export interface OperationBlockProps {
   operation: Operation,
+  saveChanges: (value: number) => void;
 }
 
 export interface ButtonProps {

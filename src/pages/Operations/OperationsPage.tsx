@@ -2,26 +2,19 @@ import styles from "./OperationPage.module.css";
 import { useEffect, useState } from "react";
 import { Operation } from "../../ts/interfaces";
 import { OperationBlock } from "../../components/OperationBlock/OperationBlock";
-
-const DATA = [
-  {
-    id: "1",
-    operation_type: "operation_type 1",
-    execution_time: 1,
-  },
-  {
-    id: "2",
-    operation_type: "operation_type 2",
-    execution_time: 2,
-  },
-];
+import { getOperations, updateOperation } from "../../services/api";
 
 export const OperationsPage = () => {
   const [operations, setOperations] = useState<Operation[]>([]);
 
+  const saveChanges = (newValue: number, operation: Operation) => {
+    updateOperation({ ...operation, execution_time: newValue }).then(() => {
+      getOperations().then(data => setOperations(data));
+    })
+  };
+
   useEffect(() => {
-    // запрос на получение списка operations
-    setOperations(DATA);
+    getOperations().then(data => setOperations(data));
   }, []);
 
   return (
@@ -30,6 +23,7 @@ export const OperationsPage = () => {
         <OperationBlock
           key={operation.id}
           operation={operation}
+          saveChanges={(newValue) => saveChanges(newValue, operation)}
         />
       ))}
     </div>

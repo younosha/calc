@@ -3,43 +3,22 @@ import { useEffect, useState } from "react";
 import { Expression } from "../../ts/interfaces";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
-
-const DATA = [
-  {
-    id: "1",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    data: "2 + 2",
-    status: "status",
-  },
-  {
-    id: "2",
-    created_at: "created_at",
-    updated_at: "updated_at",
-    data: "3 + 3",
-    status: "status",
-  },
-];
+import { createExpression, getExpressions } from "../../services/api";
 
 export const ExpressionsPage = () => {
   const [expressions, setExpressions] = useState<Expression[]>([]);
   const [newExpression, setNewExpression] = useState<string>("");
 
-  const createExpression = () => {
-    // запрос на создание expression
-    // запрос на получение списка после успешного создания
-    setExpressions(prev => (
-      [
-        ...prev,
-        { ...DATA[0], id: String(expressions.length + 1), data: newExpression }
-      ]
-    ))
-    setNewExpression("");
-  }
+  const createHandler = () => {
+    createExpression(newExpression).then(() => {
+      getExpressions().then(data => setExpressions(data));
+    }).finally(() => {
+      setNewExpression("");
+    });
+  };
 
   useEffect(() => {
-    // запрос на получение списка expressions
-    setExpressions(DATA);
+    getExpressions().then(data => setExpressions(data));
   }, []);
 
   return (
@@ -50,7 +29,7 @@ export const ExpressionsPage = () => {
           onChange={(e) => setNewExpression(e)}
         />
         <Button
-          onClick={createExpression}
+          onClick={createHandler}
           disabled={!newExpression.length}
           title="Create"
         />
