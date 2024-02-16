@@ -6,6 +6,9 @@ export interface Expression {
   updated_at: string,
   data: string,
   status: string,
+  parse_date: string,
+  result: number,
+  is_ready: boolean,
 }
 
 export interface Operation {
