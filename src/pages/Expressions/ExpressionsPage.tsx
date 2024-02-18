@@ -18,8 +18,8 @@ export const ExpressionsPage = () => {
         getExpressions()
           .then(data => setExpressions(data));
       })
-      .catch((err) => {
-        toast.error(err);
+      .catch(() => {
+        toast.error("Error");
       })
       .finally(() => {
         setNewExpression("");
